@@ -6,11 +6,13 @@ var Neighborhood = function() {
     this.myMarkers = [];
     this.markers = [
         {
-            title: 'Marker 1',
+            title: 'Lakeview Athletic Club',
+            address: '3212 N Broadway St, Chicago, IL 60657',
             position: { lat: 41.941202, lng: -87.644708 }
         },
         {
-            title: 'Marker 2',
+            title: 'LA Fitness',
+            address: '2828 N Clark St, Chicago, IL 60626',
             position: {lat: 41.933492, lng: -87.645932}
         }
     ];

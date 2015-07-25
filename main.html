@@ -44,10 +44,9 @@
         </form>
       </div>
     </nav>
-    <div class="navbar navbar-left" id="listView" data-bind="visible: listMenuVisible">
-      <ul>
-        <li>Marker 1</li>
-        <li>Marker 2</li>
+    <div class="list-group" id="listView" data-bind="visible: listMenuVisible">
+      <ul data-bind="foreach: markers">
+        <a href="#" class="list-group-item" data-bind="text: title"></a>
       </ul>
     </div>
     <div id="map-canvas">
@@ -57,7 +56,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/knockout/dist/knockout.js"></script>
-    <script src="js/viewmodel/viewmodel.js"></script>
+    
     <script src="js/views/map.js"></script>
+    <script src="js/viewmodel/viewmodel.js"></script>
   </body>
 </html>
