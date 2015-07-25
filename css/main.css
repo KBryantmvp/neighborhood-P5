@@ -7,7 +7,11 @@
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('../bower_components/bootstrap/fonts/*');
+    src: url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot'),
+    url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg'),
+    url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf'),
+    url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff'),
+    url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff2');
 }
 
 html, body, #map-canvas {
