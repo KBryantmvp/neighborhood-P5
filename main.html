@@ -29,13 +29,35 @@
     </script>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <button type="button" class="btn btn-default" data-bind="click: showListView" aria-label="Left Align">
+              <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </button>
+            <input type="text" class="form-control" placeholder="Search"></input>
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </nav>
+    <div class="navbar navbar-left" id="listView" data-bind="visible: listMenuVisible">
+      <ul>
+        <li>Marker 1</li>
+        <li>Marker 2</li>
+      </ul>
+    </div>
     <div id="map-canvas">
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type='text/javascript' src='bower_components/knockout/dist/knockout.js'></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="js/viewmodel/viewmodel.js"></script>
     <script src="js/views/map.js"></script>
   </body>
 </html>

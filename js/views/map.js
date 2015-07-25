@@ -17,8 +17,8 @@ var Neighborhood = function() {
 };
 
 Neighborhood.prototype.initialize = function() {
-    this.$div = $('div');
-    this.map = new google.maps.Map(this.$div[0], this.mapOptions);
+    this.$map_canvas = $('#map-canvas')[0];
+    this.map = new google.maps.Map(this.$map_canvas, this.mapOptions);
 };
 
 Neighborhood.prototype.addMarkers = function() {
