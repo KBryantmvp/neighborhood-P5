@@ -12,6 +12,12 @@ var ListViewModel = function() {
             self.listMenuVisible(true);
         }
     };
+
+    // self.infoWindow = ko.observable();
+
+    // var infoWindow = new google.maps.InfoWindow({
+    //     content = ko.observable(myNeighborhood.markers[0].title);
+    // });
 };
 
 ko.applyBindings(ListViewModel);

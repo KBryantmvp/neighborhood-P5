@@ -3,19 +3,28 @@ var Neighborhood = function() {
         center: {lat: 41.9428926, lng: -87.6428802},
         zoom: 14
     };
+    this.myMarker = null;
     this.myMarkers = [];
     this.markers = [
         {
             title: 'Lakeview Athletic Club',
             address: '3212 N Broadway St, Chicago, IL 60657',
-            position: { lat: 41.941202, lng: -87.644708 }
+            position: { lat: 41.941202, lng: -87.644708 },
         },
         {
             title: 'LA Fitness',
             address: '2828 N Clark St, Chicago, IL 60626',
-            position: {lat: 41.933492, lng: -87.645932}
+            position: {lat: 41.933492, lng: -87.645932},
+        },
+        {
+            title: 'Wrigley Field',
+            address: '1060 W Addison St, Chicago, IL 60613',
+            position: {lat: 41.948426, lng: -87.655384},
         }
     ];
+    // this.currentInfoWindow = new google.maps.InfoWindow(this.markers[0]);
+    this.infoWindowVisible = false;
+    // var infoWindow = new google.maps.InfoWindow();
 };
 
 Neighborhood.prototype.initialize = function() {
@@ -23,11 +32,28 @@ Neighborhood.prototype.initialize = function() {
     this.map = new google.maps.Map(this.$map_canvas, this.mapOptions);
 };
 
-Neighborhood.prototype.addMarkers = function() {
+Neighborhood.prototype.createMarkers = function() {
     for (var i = 0; i<this.markers.length; i++) {
-        this.marker = new google.maps.Marker(this.markers[i]);
-        this.myMarkers.push(this.marker);
+        this.myMarker = new google.maps.Marker(this.markers[i]);
+        this.myMarkers.push(this.myMarker);
+        this.addMarkerEventListener(this.myMarker);
     }
+};
+
+Neighborhood.prototype.addMarkerEventListener = function(marker) {
+    google.maps.event.addListener(marker, 'click', function() {
+        var infoWindow = new google.maps.InfoWindow({
+                content: marker.title
+        });
+        // if (this.infoWindowVisible) {
+        //     infoWindow.close();
+        //     this.infoWindowVisible = false;
+        //     console.log(infoWindow);
+        // } else {
+        infoWindow.open(this.map, marker);
+        // this.infoWindowVisible = true;
+        // }
+    });
 };
 
 Neighborhood.prototype.setAllMap = function() {
@@ -37,6 +63,8 @@ Neighborhood.prototype.setAllMap = function() {
 
 var myNeighborhood = new Neighborhood();
 myNeighborhood.initialize();
-myNeighborhood.addMarkers();
+// myNeighborhood.addMarkers();
+myNeighborhood.createMarkers();
 myNeighborhood.setAllMap();
+// myNeighborhood.addMarkerListeners();
     // google.maps.event.addDomListener(window, 'load', initialize);
