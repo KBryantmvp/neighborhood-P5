@@ -3,7 +3,7 @@ var Neighborhood = function() {
         center: {lat: 41.9428926, lng: -87.6428802},
         zoom: 14
     };
-    this.myMarker = null;
+    // this.myMarker = null;
     this.myMarkers = [];
     this.markers = [
         {
@@ -22,8 +22,10 @@ var Neighborhood = function() {
             position: {lat: 41.948426, lng: -87.655384},
         }
     ];
+    this.infoWindow = null;
+    // console.log(infoWindow);
     // this.currentInfoWindow = new google.maps.InfoWindow(this.markers[0]);
-    this.infoWindowVisible = false;
+    // this.infoWindowVisible = false;
     // var infoWindow = new google.maps.InfoWindow();
 };
 
@@ -34,15 +36,17 @@ Neighborhood.prototype.initialize = function() {
 
 Neighborhood.prototype.createMarkers = function() {
     for (var i = 0; i<this.markers.length; i++) {
-        this.myMarker = new google.maps.Marker(this.markers[i]);
-        this.myMarkers.push(this.myMarker);
-        this.addMarkerEventListener(this.myMarker);
+        var myMarker = new google.maps.Marker(this.markers[i]);
+        this.myMarkers.push(myMarker);
+        this.addMarkerEventListener(myMarker);
     }
 };
 
 Neighborhood.prototype.addMarkerEventListener = function(marker) {
     google.maps.event.addListener(marker, 'click', function() {
-        var infWin = new MyInfoWindow(this.map, marker);
+        console.log(this.infoWindow);
+        this.infoWindow.open(this.map, marker);
+        // var infWin = new MyInfoWindow(this.map, marker);
         // infWin.changeInfoWindowStatus();
     });
 };
@@ -52,32 +56,39 @@ Neighborhood.prototype.setAllMap = function() {
         this.myMarkers[i].setMap(this.map);
 };
 
+Neighborhood.prototype.createInfoWindow = function() {
+    this.infoWindow = new google.maps.InfoWindow();
+    console.log(this.infoWindow);
+};
+
 /*****************MyInfoWindow object and its methods*********************************/
 
-var MyInfoWindow = function(map, marker) {
-    this.infoWindow = new google.maps.InfoWindow({
-        content: marker.title
-    });
-    // this.infoWindowVisible;
-    // this.infoWindow.close();
-    // this.changeInfoWindowStatus();
-    this.infoWindow.open(map, marker);
-};
+// var MyInfoWindow = function(map, marker) {
+//     this.infoWindow = new google.maps.InfoWindow({
+//         content: marker.title
+//     });
+//     // this.infoWindowVisible;
+//     // this.infoWindow.close();
+//     // this.changeInfoWindowStatus();
+//     // this.infoWindow.open(map, marker);
+// };
 
-MyInfoWindow.prototype.changeInfoWindowStatus = function() {
-    if (this.infoWindowVisible){
-        this.infoWindow.close();
-        console.log(infoWindowVisible);
-        this.infoWindowVisible = false;
-    } else {
-        this.infoWindowVisible = true;
-    }
-};
+// MyInfoWindow.prototype.changeInfoWindowStatus = function() {
+//     if (this.infoWindowVisible){
+//         this.infoWindow.close();
+//         console.log(infoWindowVisible);
+//         this.infoWindowVisible = false;
+//     } else {
+//         this.infoWindowVisible = true;
+//     }
+// };
 
 var myNeighborhood = new Neighborhood();
 myNeighborhood.initialize();
+myNeighborhood.createInfoWindow();
 // myNeighborhood.addMarkers();
 myNeighborhood.createMarkers();
 myNeighborhood.setAllMap();
+
 // myNeighborhood.addMarkerListeners();
     // google.maps.event.addDomListener(window, 'load', initialize);
