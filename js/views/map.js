@@ -42,23 +42,36 @@ Neighborhood.prototype.createMarkers = function() {
 
 Neighborhood.prototype.addMarkerEventListener = function(marker) {
     google.maps.event.addListener(marker, 'click', function() {
-        var infoWindow = new google.maps.InfoWindow({
-                content: marker.title
-        });
-        // if (this.infoWindowVisible) {
-        //     infoWindow.close();
-        //     this.infoWindowVisible = false;
-        //     console.log(infoWindow);
-        // } else {
-        infoWindow.open(this.map, marker);
-        // this.infoWindowVisible = true;
-        // }
+        var infWin = new MyInfoWindow(this.map, marker);
+        // infWin.changeInfoWindowStatus();
     });
 };
 
 Neighborhood.prototype.setAllMap = function() {
     for (var i = 0; i<this.myMarkers.length; i++)
         this.myMarkers[i].setMap(this.map);
+};
+
+/*****************MyInfoWindow object and its methods*********************************/
+
+var MyInfoWindow = function(map, marker) {
+    this.infoWindow = new google.maps.InfoWindow({
+        content: marker.title
+    });
+    // this.infoWindowVisible;
+    // this.infoWindow.close();
+    // this.changeInfoWindowStatus();
+    this.infoWindow.open(map, marker);
+};
+
+MyInfoWindow.prototype.changeInfoWindowStatus = function() {
+    if (this.infoWindowVisible){
+        this.infoWindow.close();
+        console.log(infoWindowVisible);
+        this.infoWindowVisible = false;
+    } else {
+        this.infoWindowVisible = true;
+    }
 };
 
 var myNeighborhood = new Neighborhood();
