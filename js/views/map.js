@@ -37,15 +37,22 @@ Neighborhood.prototype.initialize = function() {
 Neighborhood.prototype.createMarkers = function() {
     for (var i = 0; i<this.markers.length; i++) {
         var myMarker = new google.maps.Marker(this.markers[i]);
+        console.log(i);
+        console.log(myMarker);
+        console.log(this.markers[i]);
         this.myMarkers.push(myMarker);
         this.addMarkerEventListener(myMarker);
     }
 };
 
 Neighborhood.prototype.addMarkerEventListener = function(marker) {
+    var self = this;
+    // console.log(self);
+    // console.log(self.infoWindow);
     google.maps.event.addListener(marker, 'click', function() {
-        console.log(this.infoWindow);
-        this.infoWindow.open(this.map, marker);
+        // console.log(self.infoWindow);
+        self.infoWindow.setContent(marker.title);
+        self.infoWindow.open(self.map, marker);
         // var infWin = new MyInfoWindow(this.map, marker);
         // infWin.changeInfoWindowStatus();
     });
@@ -58,7 +65,6 @@ Neighborhood.prototype.setAllMap = function() {
 
 Neighborhood.prototype.createInfoWindow = function() {
     this.infoWindow = new google.maps.InfoWindow();
-    console.log(this.infoWindow);
 };
 
 /*****************MyInfoWindow object and its methods*********************************/
