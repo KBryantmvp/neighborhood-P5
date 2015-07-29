@@ -47,7 +47,7 @@
     </nav>
     <div class="list-group" id="listView" data-bind="visible: listMenuVisible">
       <ul data-bind="foreach: markers">
-        <a href="#" class="list-group-item" data-bind="text: title"></a>
+        <a href="#" class="list-group-item" data-bind="text: title, click: showInfoWindow"></a>
       </ul>
     </div>
     <div id="map-canvas">

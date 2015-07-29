@@ -5,26 +5,29 @@ var Neighborhood = function() {
     };
     // this.myMarker = null;
     this.myMarkers = [];
-    this.markers = [
+    this.locations = [
         {
             title: 'Lakeview Athletic Club',
             address: '3212 N Broadway St, Chicago, IL 60657',
             position: { lat: 41.941202, lng: -87.644708 },
+            // marker: null
         },
         {
             title: 'LA Fitness',
             address: '2828 N Clark St, Chicago, IL 60626',
             position: {lat: 41.933492, lng: -87.645932},
+            // marker: null
         },
         {
             title: 'Wrigley Field',
             address: '1060 W Addison St, Chicago, IL 60613',
             position: {lat: 41.948426, lng: -87.655384},
+            // marker: null
         }
     ];
     this.infoWindow = null;
     // console.log(infoWindow);
-    // this.currentInfoWindow = new google.maps.InfoWindow(this.markers[0]);
+    // this.currentInfoWindow = new google.maps.InfoWindow(this.locations[0]);
     // this.infoWindowVisible = false;
     // var infoWindow = new google.maps.InfoWindow();
 };
@@ -35,12 +38,13 @@ Neighborhood.prototype.initialize = function() {
 };
 
 Neighborhood.prototype.createMarkers = function() {
-    for (var i = 0; i<this.markers.length; i++) {
-        var myMarker = new google.maps.Marker(this.markers[i]);
-        console.log(i);
-        console.log(myMarker);
-        console.log(this.markers[i]);
+    for (var i = 0; i<this.locations.length; i++) {
+        var myMarker = new google.maps.Marker(this.locations[i]);
         this.myMarkers.push(myMarker);
+
+        // this.locations[i].marker = this.myMarkers[i];
+        // console.log(this.myMarkers[0]);
+
         this.addMarkerEventListener(myMarker);
     }
 };
@@ -48,7 +52,8 @@ Neighborhood.prototype.createMarkers = function() {
 Neighborhood.prototype.addMarkerEventListener = function(marker) {
     var self = this;
     // console.log(self);
-    // console.log(self.infoWindow);
+    // console.log("test");
+    // console.log(marker);
     google.maps.event.addListener(marker, 'click', function() {
         // console.log(self.infoWindow);
         self.infoWindow.setContent(marker.title);
