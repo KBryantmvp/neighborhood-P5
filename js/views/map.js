@@ -35,6 +35,9 @@ var Neighborhood = function() {
 Neighborhood.prototype.initialize = function() {
     this.$map_canvas = $('#map-canvas')[0];
     this.map = new google.maps.Map(this.$map_canvas, this.mapOptions);
+    // if (!google) {
+    //     alert("asdfasdf");
+    // }
 };
 
 Neighborhood.prototype.createMarkers = function() {
@@ -99,7 +102,7 @@ myNeighborhood.initialize();
 myNeighborhood.createInfoWindow();
 // myNeighborhood.addMarkers();
 myNeighborhood.createMarkers();
-myNeighborhood.setAllMap();
+// myNeighborhood.setAllMap();
 
 // myNeighborhood.addMarkerListeners();
     // google.maps.event.addDomListener(window, 'load', initialize);

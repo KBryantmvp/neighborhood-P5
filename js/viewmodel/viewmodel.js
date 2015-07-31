@@ -1,10 +1,13 @@
 var ListViewModel = function() {
-    self = this;
-
-    self.listMenuVisible = ko.observable(false);
+    var self = this;
 
     self.markers = ko.observableArray(myNeighborhood.myMarkers);
+    for (i = 0; i<self.markers().length; i++) {
+        self.markers()[i].showItem = ko.observable(true);
+        self.markers()[i].setMap(myNeighborhood.map);
+    }
 
+    self.listMenuVisible = ko.observable(false);
     self.showListView = function() {
         if(self.listMenuVisible()) {
             self.listMenuVisible(false);
@@ -14,21 +17,36 @@ var ListViewModel = function() {
     };
 
     self.infoWindow = ko.observable(myNeighborhood.infoWindow);
-    // self.infoContent = ko.observable();
-    // self.
+
     self.showInfoWindow = function(marker) {
-        console.log(marker);
-        console.log(marker.position);
-        console.log(marker.title);
-        // self.infoWindow().setPosition(marker.position);
         self.infoWindow().setContent(marker.title);
         self.infoWindow().open(myNeighborhood.map, marker);
-        console.log("test");
     };
 
-    // var infoWindow = new google.maps.InfoWindow({
-    //     content = ko.observable(myNeighborhood.markers[0].title);
-    // });
+
+    self.searchInput = ko.observable();
+
+    self.searchFilter = function() {
+        var value = self.searchInput() || "";
+        // self.listMenuVisible(false);
+
+        for (var i in self.markers()) {
+            if(self.markers()[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                // console.log(self.markers()[i].visible());
+                self.markers()[i].showItem(true);
+                self.markers()[i].setVisible(true);
+                console.log(self.markers()[i]);
+                // self.showItem(true);
+                // console.log(i);
+            } else {
+                console.log('else:');
+                // console.log(self.markers()[i].visible());
+                self.markers()[i].showItem(false);
+                self.markers()[i].setVisible(false);
+                // self.showItem(false);
+            }
+        }
+    };
 };
 
 ko.applyBindings(ListViewModel);
