@@ -1,9 +1,12 @@
+/*Neighborhood object that creates the map and has the data for the locations that will 
+create the markers*/
+
 var Neighborhood = function() {
     this.mapOptions = {
         center: {lat: 41.9428926, lng: -87.6428802},
         zoom: 14
     };
-    // this.myMarker = null;
+
     this.myMarkers = [];
     this.locations = [
         {
@@ -25,84 +28,35 @@ var Neighborhood = function() {
             // marker: null
         }
     ];
-    this.infoWindow = null;
-    // console.log(infoWindow);
-    // this.currentInfoWindow = new google.maps.InfoWindow(this.locations[0]);
-    // this.infoWindowVisible = false;
-    // var infoWindow = new google.maps.InfoWindow();
+    this.infoWindow = new google.maps.InfoWindow();
 };
 
+/*Function that displays the Google map*/
 Neighborhood.prototype.initialize = function() {
     this.$map_canvas = $('#map-canvas')[0];
     this.map = new google.maps.Map(this.$map_canvas, this.mapOptions);
-    // if (!google) {
-    //     alert("asdfasdf");
-    // }
 };
 
+/*Creates the markers by looping through the locations array.
+Calls the event listener for each marker*/
 Neighborhood.prototype.createMarkers = function() {
     for (var i = 0; i<this.locations.length; i++) {
         var myMarker = new google.maps.Marker(this.locations[i]);
         this.myMarkers.push(myMarker);
-
-        // this.locations[i].marker = this.myMarkers[i];
-        // console.log(this.myMarkers[0]);
-
         this.addMarkerEventListener(myMarker);
     }
 };
 
+/*Adds an event listener for each marker so the info window is opened with the appropriate content*/
 Neighborhood.prototype.addMarkerEventListener = function(marker) {
     var self = this;
-    // console.log(self);
-    // console.log("test");
-    // console.log(marker);
+
     google.maps.event.addListener(marker, 'click', function() {
-        // console.log(self.infoWindow);
         self.infoWindow.setContent(marker.title);
         self.infoWindow.open(self.map, marker);
-        // var infWin = new MyInfoWindow(this.map, marker);
-        // infWin.changeInfoWindowStatus();
     });
 };
 
-Neighborhood.prototype.setAllMap = function() {
-    for (var i = 0; i<this.myMarkers.length; i++)
-        this.myMarkers[i].setMap(this.map);
-};
-
-Neighborhood.prototype.createInfoWindow = function() {
-    this.infoWindow = new google.maps.InfoWindow();
-};
-
-/*****************MyInfoWindow object and its methods*********************************/
-
-// var MyInfoWindow = function(map, marker) {
-//     this.infoWindow = new google.maps.InfoWindow({
-//         content: marker.title
-//     });
-//     // this.infoWindowVisible;
-//     // this.infoWindow.close();
-//     // this.changeInfoWindowStatus();
-//     // this.infoWindow.open(map, marker);
-// };
-
-// MyInfoWindow.prototype.changeInfoWindowStatus = function() {
-//     if (this.infoWindowVisible){
-//         this.infoWindow.close();
-//         console.log(infoWindowVisible);
-//         this.infoWindowVisible = false;
-//     } else {
-//         this.infoWindowVisible = true;
-//     }
-// };
-
 var myNeighborhood = new Neighborhood();
 myNeighborhood.initialize();
-myNeighborhood.createInfoWindow();
-// myNeighborhood.addMarkers();
 myNeighborhood.createMarkers();
-// myNeighborhood.setAllMap();
-
-// myNeighborhood.addMarkerListeners();
-    // google.maps.event.addDomListener(window, 'load', initialize);
