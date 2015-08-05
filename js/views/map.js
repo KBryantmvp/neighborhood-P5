@@ -33,30 +33,21 @@ var Neighborhood = function() {
 
 /*Function that displays the Google map*/
 Neighborhood.prototype.initialize = function() {
-    this.$map_canvas = $('#map-canvas')[0];
+    this.$map_canvas = $('.map-canvas')[0];
     this.map = new google.maps.Map(this.$map_canvas, this.mapOptions);
 };
 
 /*Creates the markers by looping through the locations array.
 Calls the event listener for each marker*/
 Neighborhood.prototype.createMarkers = function() {
-    for (var i = 0; i<this.locations.length; i++) {
+    for (var i = 0, len = this.locations.length; i<len; i++) {
         var myMarker = new google.maps.Marker(this.locations[i]);
         this.myMarkers.push(myMarker);
-        this.addMarkerEventListener(myMarker);
     }
 };
 
-/*Adds an event listener for each marker so the info window is opened with the appropriate content*/
-Neighborhood.prototype.addMarkerEventListener = function(marker) {
-    var self = this;
 
-    google.maps.event.addListener(marker, 'click', function() {
-        self.infoWindow.setContent(marker.title);
-        self.infoWindow.open(self.map, marker);
-    });
-};
-
+/*Creates the Neighborhood object and starts the whole app*/
 var myNeighborhood = new Neighborhood();
 myNeighborhood.initialize();
 myNeighborhood.createMarkers();
