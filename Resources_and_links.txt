@@ -1,0 +1,8 @@
+Resources and links used for this project:
+- Intro to AJAX and JavaScript Design Patterns courses from Udacity
+- http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/
+- http://javascriptissexy.com/understand-javascript-closures-with-ease/
+- http://knockoutjs.com/ and its sub-pages such as live examples and tutorials
+- https://www.devbridge.com/articles/knockout-a-real-world-example/
+- http://opensoul.org/2011/06/23/live-search-with-knockoutjs/ this one was really helpful to understand the search functionality
+- The Udacity Discussion forum. I have read lots of posts and I have even published some questions and doubts.

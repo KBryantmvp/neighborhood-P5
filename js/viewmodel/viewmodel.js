@@ -1,4 +1,4 @@
-/*View Model*/
+/*View Model using knockout.js library, which connects different parts of the UI with the corresponding data*/
 
 var ListViewModel = function() {
     var self = this;
@@ -10,7 +10,7 @@ var ListViewModel = function() {
         self.markers()[i].setMap(myNeighborhood.map);
         addMarkerListener(self.markers()[i]);
     }
-
+/*For each marker, create the event listener when clicked*/
     function addMarkerListener(marker) {
         google.maps.event.addListener(marker, 'click', function() {
             self.showInfoWindow(marker);
@@ -34,32 +34,26 @@ var ListViewModel = function() {
         }
     };
 
-/*Wikipedia ajax request*/
+/*Handler event that opens infoWindow on each marker with the corresponding data from Wikipedia*/
     self.showInfoWindow = function(marker) {
         var selected_marker = marker;
         $.ajax({
             url: 'http://en.wikipedia.org/w/api.php?action=opensearch&format=json&limit=1&search=' + selected_marker.title,
             dataType: 'jsonp',
-            // headers: { 'Api-User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36' },
             success: function(data) {
                 var wikiTitle = data[1];
                 var wikiSnippet = data[2];
                 var wikiLink = data[3];
                 if (wikiLink.length !== 0) {
-                    // console.log(wikiLink[0]);
                     infoWindowContent = '<a href="' + wikiLink + '">' + wikiTitle + '</a><br>' + '<p>' + wikiSnippet + '</p>' +
                     '<br><a href="' + wikiLink + '">' + wikiLink + '</a>';
-                    // console.log(infoWindowContent);
                 } else {
-                    // console.log('wikiTitle: ' + data[0]);
                     infoWindowContent = '<p>' + data[0] + '</p>' + '<br>' + '<p>No Wikipedia articles were found</p>';
                 }
                 self.infoWindow().setContent(infoWindowContent);
-                // console.log(infoWindowContent);
                 self.infoWindow().open(myNeighborhood.map, selected_marker);
             },
             error: function(data2) {
-                // console.log('error: ' + data2);
                 alert("Wikipedia data could not be retrieved");
             }
         });
@@ -84,4 +78,5 @@ var ListViewModel = function() {
     };
 };
 
+/*Activate knockout.js library*/
 ko.applyBindings(ListViewModel);
